@@ -5,10 +5,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    tracy = {
-      url = "github:wolfpld/tracy?tag=v0.13.0";
-      flake = false;
-    };
   };
 
   outputs =
@@ -47,7 +43,12 @@
               pname = "tracy";
               version = "0.13.0";
 
-              src = inputs.tracy;
+              src = pkgs.fetchFromGitHub {
+                owner = "wolfpld";
+                repo = "tracy";
+                rev = "v0.13.0";
+                hash = "sha256-xxT1xy3S5nh9qMjK+4HnaWJnGGO64a1u7eSwvQBLcPY=";
+              };
 
               patches = [
                 ./cpm-no-hash.patch
@@ -80,22 +81,29 @@
 
                 tbb_2022
               ]
+              ++ lib.optionals stdenv.isDarwin [
+                glfw
+                llvmPackages.bintools
+              ]
               ++ lib.optionals stdenv.isLinux [
                 wayland-scanner
+                wayland
                 libglvnd
                 libxkbcommon
-                wayland
               ];
 
               cmakeFlags = [
-                "-DDOWNLOAD_CAPSTONE=off"
+                "-DDOWNLOAD_CAPSTONE=on"
                 "-DTRACY_STATIC=off"
-                "-DCPM_SOURCE_CACHE=/build/source/cpm_source_cache"
+                "-DCPM_SOURCE_CACHE=cpm_source_cache"
                 "-DGTK_FILESELECTION=ON"
                 "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+              ] ++ lib.optionals stdenv.isDarwin [
+                "-DCMAKE_CXX_SCAN_FOR_MODULES=OFF"
               ];
 
-              env.NIX_CFLAGS_COMPILE = "-ltbb";
+              env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-deprecated-declarations";
+              env.NIX_LDFLAGS = "-ltbb";
 
               dontUseCmakeBuildDir = true;
 

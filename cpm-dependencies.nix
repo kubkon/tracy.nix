@@ -27,8 +27,8 @@
       src = fetchFromGitHub {
         owner = "ocornut";
         repo = "imgui";
-        rev = "v1.92.5-docking";
-        hash = "sha256-/jVT7+874LCeSF/pdNVTFoSOfRisSqxCJnt5/SGCXPQ=";
+        rev = "v1.92.1-docking";
+        hash = "sha256-9nFGXpVj+oWIfuOiXXVJodzc8G1hirSiVCMq6dxFV9o=";
       };
     }
     {
@@ -54,8 +54,8 @@
       src = fetchFromGitHub {
         owner = "capstone-engine";
         repo = "capstone";
-        rev = "6.0.0-Alpha5";
-        hash = "sha256-18PTj4hvBw8RTgzaFGeaDbBfkxmotxSoGtprIjcEuVg=";
+        rev = "6.0.0-Alpha1";
+        hash = "sha256-oKRu3P1inWueEMIpL0uI2ayCMHZ9FIVotil4sqwLqH4=";
       };
     }
     {
