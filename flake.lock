@@ -52,24 +52,7 @@
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs",
-        "tracy": "tracy"
-      }
-    },
-    "tracy": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1764693126,
-        "narHash": "sha256-TUN/YdAFyAj1O+LavGVoQDJ88P86q5EH/rNVjhdPo3A=",
-        "owner": "wolfpld",
-        "repo": "tracy",
-        "rev": "52bfac424346f00288a5460ccb06c4459204d9f0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "wolfpld",
-        "repo": "tracy",
-        "type": "github"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
