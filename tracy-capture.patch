@@ -1,0 +1,30 @@
+From e5646b1f6ad5dd2c3913b39de56bf7073ee1f065 Mon Sep 17 00:00:00 2001
+From: Jakub Konka <kubkon@jakubkonka.com>
+Date: Fri, 23 Jan 2026 12:04:38 +0100
+Subject: [PATCH] capture: Display current query backlog
+
+---
+ capture/src/capture.cpp | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/capture/src/capture.cpp b/capture/src/capture.cpp
+index 16293ef51f..d634387995 100644
+--- a/capture/src/capture.cpp
++++ b/capture/src/capture.cpp
+@@ -218,6 +218,7 @@ int main( int argc, char** argv )
+         const auto mbps = worker.GetMbpsData().back();
+         const auto compRatio = worker.GetCompRatio();
+         const auto netTotal = worker.GetDataTransferred();
++        const auto queueSize = worker.GetSendQueueSize();
+         lock.unlock();
+ 
+         // Output progress info only if destination is a TTY to avoid bloating
+@@ -248,6 +249,8 @@ int main( int argc, char** argv )
+             }
+             printf( " | ");
+             AnsiPrintf( ANSI_RED, "%s", tracy::TimeToString( worker.GetLastTime() - firstTime ) );
++            printf( " | ");
++            AnsiPrintf( ANSI_RED ANSI_BOLD, "%s query backlog", tracy::RealToString( queueSize ) );
+             fflush( stdout );
+         }
+ 

@@ -53,6 +53,7 @@
               patches = [
                 ./cpm-no-hash.patch
                 ./no-git.patch
+                ./tracy-capture.patch
               ];
 
               postUnpack = ''
